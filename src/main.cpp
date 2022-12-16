@@ -47,8 +47,8 @@ int main(int argc, char* argv[])
 	// Generate data for one parameter point specified in the configuration file.
 	if(cfg.run_mode == "Parameter point")
 	{
-		double u_min = 0.0;
-		// double u_min = cfg.DM_detector->Minimum_DM_Speed(*cfg.DM);
+		//double u_min = 0.0;
+		double u_min = cfg.DM_detector->Minimum_DM_Speed(*cfg.DM);
 		Simulation_Data data_set(cfg.sample_size, u_min, cfg.isoreflection_rings);
 		data_set.Configure(1.1 * rSun, 1, 1000);
 		if(mpi_rank == 0)
@@ -82,9 +82,11 @@ int main(int argc, char* argv[])
 			if(mpi_rank == 0)
 				libphysica::Export_Function(cfg.results_path + "Differential_Energy_Spectrum.txt", dR_dE, energies, {keV, 1.0 / keV / kg / year});
 
+                        /*
 			// Compute p value for chosen experiment
 			double p = cfg.DM_detector->P_Value(*cfg.DM, spectrum);
 			libphysica::Print_Box("p = " + std::to_string(libphysica::Round(p)), 1, mpi_rank);
+                        */
 		}
 		else
 		{
